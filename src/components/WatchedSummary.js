@@ -15,9 +15,9 @@ export function WatchedSummary({ watched }) {
           <span>{watched.length} movies</span>
         </p>
         <WatchedInfo
-          imdbRating={avgImdbRating}
-          userRating={avgUserRating}
-          runtime={avgRuntime}
+          imdbRating={avgImdbRating.toFixed(1)}
+          userRating={avgUserRating.toFixed(1)}
+          runtime={avgRuntime.toFixed(0)}
         />
       </div>
     </div>
