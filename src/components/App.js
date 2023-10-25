@@ -11,6 +11,7 @@ import { WatchedList } from "./WatchedList";
 import Loader from "./Loader";
 import ErrorMessage from "./Error";
 import MovieDetails from "./MovieDetails";
+import { useLocalStorageState } from "../useLocalStorageState";
 
 export const tempMovieData = [
   {
@@ -67,10 +68,10 @@ export const API_Key = "81479ec2";
 export default function App() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [selectedMovieId, setSelectedMovieId] = useState(null);
+  const [watched, setWatched] = useLocalStorageState([], "watched");
 
   useEffect(
     function () {
@@ -100,7 +101,7 @@ export default function App() {
         }
       }
 
-      if (query.length < 3) {
+      if (query.length < 2) {
         setError("");
         return;
       }

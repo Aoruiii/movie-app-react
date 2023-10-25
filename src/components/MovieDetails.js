@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { API_Key } from "./App";
 import StarRating from "./StarRating";
 import Loader from "./Loader";
@@ -16,6 +16,15 @@ export default function MovieDetails({
   const currentRating = watched.find(
     (m) => m.imdbID === selectedMovieId
   )?.userRating;
+
+  const ratingCount = useRef(0);
+
+  useEffect(
+    function () {
+      if (movieRating) ratingCount.current = ratingCount.current + 1;
+    },
+    [movieRating]
+  );
 
   const {
     Title: title,
@@ -40,6 +49,7 @@ export default function MovieDetails({
       runtime: Number(runtime.split(" ").at(0)),
       imdbRating: Number(imdbRating),
       userRating: movieRating,
+      ratingCount: ratingCount.current,
     };
 
     onWatched(newWatched);
